@@ -5,23 +5,46 @@ class View {
     onEditTodoItem;
     onEditChange;
 
-    constructor() {
-        this.addBtn = document.querySelector('.addBtn');
-        this.counter = document.getElementById('counter');
-        this.modalBtn = document.querySelector('.modalBtn');
-        this.cancel = document.querySelector('.cancel');
+    //modalCard
+    onAddTodoItemCard;
+    
+    constructor(container) {
+        this.container = container;
+        // this.addBtn = document.querySelector('.addBtn');
+        // this.counter = document.getElementById('counter');
+        // this.modalBtn = document.querySelector('.modalBtn');
+        // this.cancel = document.querySelector('.cancel');
+        // this.cancelCard = document.querySelector('.cancel-card');
+        // this.addBtnCard = document.querySelector('.addBtnCard');
 
-        this.modalBtn.addEventListener('click', () => {
-            let modal = document.getElementById('myModal');
+
+        //modalCard
+
+        // this.modalCardBtn = document.querySelector('.modalCardBtn');
+
+        this.container.modalBtn.addEventListener('click', () => {
+            let modal = this.container.modal;
             modal.style.display = "block";
         });
-        this.cancel.addEventListener('click', () => {
-            let modal = document.getElementById('myModal');
+        this.container.cancel.addEventListener('click', () => {
+            let modal = this.container.modal;
             modal.style.display = "none";
         });
 
-        this.addBtn.addEventListener('click', () => {
-            let text = document.getElementById("myInput").value;
+
+        // //modalCard
+        // this.modalCardBtn.addEventListener('click', () => {
+        //     let modalCard = document.getElementById('ModalCard');
+        //     modalCard.style.display = "block";
+        // });
+        // this.cancelCard.addEventListener('click', () => {
+        //     let modalCard = document.getElementById('ModalCard');
+        //     modalCard.style.display = "none";
+        // });
+
+
+        this.container.addBtn.addEventListener('click', () => {
+            let text = this.container.text.value;
             let time = new Date().toLocaleTimeString("en-us", {
                 hour: 'numeric',
                 minute: 'numeric'
@@ -29,8 +52,22 @@ class View {
             if (this.onAddTodoItem) {
                 this.onAddTodoItem(text, time);
             }
-            document.getElementById("myInput").value = "";
+            this.container.text.value = "";
         });
+
+        //modalCard
+        // this.addBtnCard.addEventListener('click', () => {
+        //     let text = document.getElementById("InputCard").value;
+        //     let time = new Date().toLocaleTimeString("en-us", {
+        //         hour: 'numeric',
+        //         minute: 'numeric'
+        //     });
+        //     if (this.onAddTodoItemCard) {
+        //         this.onAddTodoItemCard(text, time);
+        //     }
+        //     document.getElementById("InputCard").value = "";
+        // });
+
     }
 
     countItems(todoItems) {
@@ -39,6 +76,7 @@ class View {
 
     renderTodoItem(todoItem) {
         const todoItemNode = this.createTodoItemNode();
+       
 
         if (todoItem.isComplete) {
             todoItemNode.chbox.checked = true;
@@ -153,7 +191,7 @@ class View {
         li.append(box,
             time,
             removeButton);
-        document.getElementById("myUL").append(li);
+        this.container.ulList.append(li);
 
         return {
             li,
@@ -165,3 +203,32 @@ class View {
         }
     }
 }
+
+
+class firstList  {
+    constructor(){
+        this.addBtn = document.querySelector('.addBtn');
+        this.counter = document.getElementById('counter');
+        this.modalBtn = document.querySelector('.modalBtn');
+        this.cancel = document.querySelector('.cancel');
+        this.ulList = document.getElementById("myUL");
+        this.modal = document.getElementById('myModal');
+        this.text = document.getElementById("myInput");
+    }
+   
+}
+
+class secondList{
+    constructor(){
+        this.addBtn = document.querySelector('.addBtnCard');
+        this.counter = document.querySelector('counterCard');
+        this.modalBtn = document.querySelector('.modalCardBtn');
+        this.cancel = document.querySelector('.cancel-card');
+        this.ulList = document.getElementById("ULCard");
+        this.modal = document.getElementById('ModalCard');
+        this.text = document.getElementById("InputCard");
+    }
+}
+
+const firstList = new firstList();
+const secondList = new secondList();

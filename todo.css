@@ -42,7 +42,7 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 5;
     left: 0;
     top: 0;
     width: 100%;
@@ -90,7 +90,7 @@ ul {
 }
 
 .inner_input {
-    width: 100%;
+    width: 50%;
     border: 1px solid #9b9cb3;
     border-radius: 10px;
     padding: 10px;
@@ -150,9 +150,9 @@ ul li {
     display: none;
 }
 
-ul li button {
+/* ul li button {
     margin-left: 500px;
-}
+} */
 
 .tasksCount {
     position: absolute;
@@ -186,21 +186,23 @@ ul li:first-child {
 }
 
 .container {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
     margin-top: 50px;
     display: flex;
-    background-color: white;
+   
     border-radius: 10px;
 }
 
 .inner_todo {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    background-color: white;
+    width: 50%;
     box-shadow: 0px 0px 17px 3px rgba(0, 0, 0, 0.19);
     border-radius: 10px;
     padding: 40px 0 80px 0;
+    margin: 20px;
 }
 
 .allList {

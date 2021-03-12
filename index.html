@@ -31,6 +31,24 @@
     </div>
     <!-- modal window -->
 
+        <!-- modal window card-->
+        <div id="ModalCard" class="modal">
+
+            <div class="modal-content">
+                <p>New task</p>
+                <div class="field">
+                    <label for="myInput" class="button">Task name</label>
+                    <input type="text" id="InputCard" class="inner_input button" placeholder="Enter new task here...">
+                </div>
+                <div class="navigationButtons">
+                    <button class="button addBtnCard">Add</button>
+                    <button class="button cancel-card">Finish</button>
+                </div>
+            </div>
+    
+        </div>
+        <!-- modal window card-->
+
     <div class="outer_todo">
         <div class="timer">
         </div>
@@ -55,6 +73,30 @@
                 <ul id="myUL" class="allList">
                 </ul>
             </div>
+
+
+            <div class="inner_todo">
+                <div class="header">
+
+                    <div class="inputTodo">
+                        <div class="dateBlock">
+                            <div class="date">
+                            </div>
+                            Date,&nbsp;
+                            <span class="dateDay">10th</span>
+                        </div>
+                        <span class="dateMo">Month</span>
+                        <button class="modalCardBtn modalBtn">+</button>
+                    </div>
+                    <div class="tasksCount">
+                        <span id="counterCard">12</span> Tasks
+                    </div>
+                </div>
+                <ul id="ULCard" class="allList">
+                </ul>
+            </div>
+
+
         </div>
     </div>
     <script src="model.js"></script>

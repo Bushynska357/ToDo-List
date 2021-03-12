@@ -54,6 +54,7 @@ class Model {
         console.log(this.liststorage)
         localStorage.setItem('data', JSON.stringify(this.liststorage));
     }
+    
 
     removeTodoItemByIndex(index) {
         this.liststorage = this.liststorage.filter(item => item.index != index);
@@ -75,9 +76,14 @@ class Model {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const view = new View();
+    
+    const view = new View(firstList);
     const model = new Model(view);
     const controller = new Controller(model, view);
+
+    const viewTwo = new View(secondList);
+    const modelTwo = new Model(viewTwo);
+    const controllerTwo = new Controller(modelTwo, viewTwo);
 
     if (localStorage.getItem("data") != null) {
         for (let i = 0; i < this.liststorage.length; i++) {
