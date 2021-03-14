@@ -6,7 +6,7 @@ class View {
     onEditChange;
 
     //modalCard
-    onAddTodoItemCard;
+    // onAddTodoItemCard;
     
     constructor(container) {
         this.container = container;
@@ -21,14 +21,16 @@ class View {
         //modalCard
 
         // this.modalCardBtn = document.querySelector('.modalCardBtn');
-
+        console.log(container.modalBtn)
         this.container.modalBtn.addEventListener('click', () => {
             let modal = this.container.modal;
             modal.style.display = "block";
+            console.log(container.modalBtn)
         });
         this.container.cancel.addEventListener('click', () => {
             let modal = this.container.modal;
             modal.style.display = "none";
+            console.log(container.modalBtn)
         });
 
 
@@ -71,7 +73,7 @@ class View {
     }
 
     countItems(todoItems) {
-        this.counter.innerText = todoItems;
+        this.container.counter.innerText = todoItems;
     }
 
     renderTodoItem(todoItem) {
@@ -215,13 +217,13 @@ class firstList  {
         this.modal = document.getElementById('myModal');
         this.text = document.getElementById("myInput");
     }
-   
+
 }
 
 class secondList{
     constructor(){
         this.addBtn = document.querySelector('.addBtnCard');
-        this.counter = document.querySelector('counterCard');
+        this.counter = document.querySelector('#counterCard');
         this.modalBtn = document.querySelector('.modalCardBtn');
         this.cancel = document.querySelector('.cancel-card');
         this.ulList = document.getElementById("ULCard");
@@ -230,5 +232,5 @@ class secondList{
     }
 }
 
-const firstList = new firstList();
-const secondList = new secondList();
+const FirstList = new firstList();
+const SecondList = new secondList();
