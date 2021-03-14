@@ -1,5 +1,5 @@
-var list = [{ text: 'test 1', index: 0, isComplete: false, time: '14:15 PM' }, { text: 'test 2', index: 1, isComplete: true, time: '14:15 PM' }];
-
+// var list = [{ text: 'test 1', index: 0, isComplete: false, time: '14:15 PM' }, { text: 'test 2', index: 1, isComplete: true, time: '14:15 PM' }];
+var list = [];
 class Storage{
     constructor(){
         this.localStorage = window.localStorage;
@@ -65,11 +65,13 @@ class Model {
     constructor(view,storage) {
         this.view = view;
         this.storage = storage;
-        console.log(this.storage.liststorage.length)
+        console.log(this.storage.liststorage.length);
+        console.log(this.storage.liststorage)
     }
 
     triggerStateById(id) {
         let item = this.storage.liststorage.find((item) => item.index == id);
+        console.log(item)
         item.isComplete = !item.isComplete;
         this.storage.setStorage();
         // localStorage.setItem('data', JSON.stringify(this.liststorage));
@@ -79,7 +81,6 @@ class Model {
         
         let newListItem = {
             index: this.storage.liststorage.length,
-            // index:JSON.parse(this.storage.getStorage).length,
             isComplete: false,
             text,
             time
@@ -109,7 +110,7 @@ class Model {
     }
 
     editTodoItem(id, txt, checked) {
-        this.storage.liststorage.splice(id, 1, { text: txt, index: Number(id), isComplete: checked })
+        this.storage.liststorage.splice(id, 1, { text: txt, index: Number(id), isComplete: checked})
         for (let i = 0; i < this.storage.liststorage.length; i++) {
             this.storage.liststorage[i].index = i;
             this.storage.setStorage();
@@ -121,22 +122,15 @@ class Model {
 document.addEventListener('DOMContentLoaded', () => {
    
     
-    const view = new View(FirstList);
+    const view = new View(firstList);
     const model = new Model(view, storage);
     const controller = new Controller(model, view);
 
-    const viewTwo = new View(SecondList);
-    const modelTwo = new Model(viewTwo, storageCard);
-    const controllerTwo = new Controller(modelTwo, viewTwo);
+    const viewCard = new View(secondList);
+    const modelCard = new Model(viewCard, storageCard);
+    const controllerCard = new Controller(modelCard, viewCard);
 
-    // if (!storageCard.liststorage) {
-    //     storageCard.liststorage = this.list;
-    // }
-    // if (!storage.liststorage) {
-    //     storage.liststorage = this.list;
-    // }
-
-    if (storage.getStorage != null) {
+      if (storage.liststorage != null) {
         for (let i = 0; i < storage.liststorage.length; i++) {
             view.renderTodoItem(storage.liststorage[i]);
             view.countItems(storage.liststorage.length);
@@ -148,27 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (storageCard.getStorage != null) {
+      if (storageCard.liststorage != null) {
         for (let i = 0; i < storageCard.liststorage.length; i++) {
-            view.renderTodoItem(storageCard.liststorage[i]);
-            view.countItems(storageCard.liststorage.length);
+            viewCard.renderTodoItem(storageCard.liststorage[i]);
+            viewCard.countItems(storageCard.liststorage.length);
         }
     } else {
         for (let i = 0; i < this.list.length; i++) {
-            storageCard.liststorage = viewTwo.renderTodoItem(this.list[i]);
+            storageCard.liststorage = viewCard.renderTodoItem(this.list[i]);
             storageCard.liststorage = localStorage.setItem('dataCard', JSON.stringify(this.list))
         }
     }
 
-    // if (localStorage.getItem("data") != null) {
-    //     for (let i = 0; i < this.storage.liststorage.length; i++) {
-    //         view.renderTodoItem(this.storage.liststorage[i]);
-    //         view.countItems(this.storage.liststorage.length);
-    //     }
-    // } else {
-    //     for (let i = 0; i < this.list.length; i++) {
-    //         this.liststorage = view.renderTodoItem(this.list[i]);
-    //         this.liststorage = localStorage.setItem('data', JSON.stringify(this.list))
-    //     }
-    // }
+
 });

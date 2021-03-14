@@ -10,17 +10,7 @@ class View {
     
     constructor(container) {
         this.container = container;
-        // this.addBtn = document.querySelector('.addBtn');
-        // this.counter = document.getElementById('counter');
-        // this.modalBtn = document.querySelector('.modalBtn');
-        // this.cancel = document.querySelector('.cancel');
-        // this.cancelCard = document.querySelector('.cancel-card');
-        // this.addBtnCard = document.querySelector('.addBtnCard');
-
-
-        //modalCard
-
-        // this.modalCardBtn = document.querySelector('.modalCardBtn');
+       
         console.log(container.modalBtn)
         this.container.modalBtn.addEventListener('click', () => {
             let modal = this.container.modal;
@@ -34,16 +24,6 @@ class View {
         });
 
 
-        // //modalCard
-        // this.modalCardBtn.addEventListener('click', () => {
-        //     let modalCard = document.getElementById('ModalCard');
-        //     modalCard.style.display = "block";
-        // });
-        // this.cancelCard.addEventListener('click', () => {
-        //     let modalCard = document.getElementById('ModalCard');
-        //     modalCard.style.display = "none";
-        // });
-
 
         this.container.addBtn.addEventListener('click', () => {
             let text = this.container.text.value;
@@ -56,19 +36,6 @@ class View {
             }
             this.container.text.value = "";
         });
-
-        //modalCard
-        // this.addBtnCard.addEventListener('click', () => {
-        //     let text = document.getElementById("InputCard").value;
-        //     let time = new Date().toLocaleTimeString("en-us", {
-        //         hour: 'numeric',
-        //         minute: 'numeric'
-        //     });
-        //     if (this.onAddTodoItemCard) {
-        //         this.onAddTodoItemCard(text, time);
-        //     }
-        //     document.getElementById("InputCard").value = "";
-        // });
 
     }
 
@@ -123,28 +90,29 @@ class View {
             event.stopPropagation();
         })
 
-        todoItemNode.editButton.addEventListener('click', () => {
-            if (todoItemNode.editButton.innerText == "Edit") {
-                todoItemNode.div.setAttribute("contenteditable", true);
-                todoItemNode.editButton.innerText = "Ok";
-                todoItemNode.div.style.border = "2px solid #000";
-                todoItemNode.div.style.borderRadius = "5px";
-            } else {
-                todoItemNode.div.setAttribute("contenteditable", false)
-                todoItemNode.editButton.innerText = "Edit";
-                todoItemNode.div.style.border = "none";
-                if (this.onEditTodoItem) {
-                    this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked);
-                }
-            }
-        })
+        // todoItemNode.div.addEventListener('click', () => {
+            // if (todoItemNode.editButton.innerText == "Edit") {
+            //     todoItemNode.div.setAttribute("contenteditable", true);
+            //     todoItemNode.editButton.innerText = "Ok";
+            //     todoItemNode.div.style.border = "2px solid #000";
+            //     todoItemNode.div.style.borderRadius = "5px";
+            // } else {
+            //     todoItemNode.div.setAttribute("contenteditable", false)
+            //     todoItemNode.editButton.innerText = "Edit";
+            //     todoItemNode.div.style.border = "none";
+                // if (this.onEditTodoItem) {
+                //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked,);
+                // }
+            // }
+        // })
 
         todoItemNode.li.addEventListener('click', () => {
             console.log('Li click');
             console.log(todoItemNode.li.classList);
-            if (this.onTodoItemStateChanged) {
-                this.onTodoItemStateChanged(todoItemNode.div.id);
-            }
+            // if (this.onTodoItemStateChanged) {
+            //     this.onTodoItemStateChanged(todoItemNode.div.id);
+            // }
+          
             if (todoItemNode.removeButton.hidden == true) {
                 todoItemNode.removeButton.hidden = false;
                 todoItemNode.time.hidden = true;
@@ -153,15 +121,18 @@ class View {
                 todoItemNode.time.hidden = false;
             }
             let el = todoItemNode.li;
-
+            
             let toggleUl = document.querySelector("ul#myUL li.current");
             if (toggleUl && toggleUl != todoItemNode.li) {
                 toggleUl.classList.remove('current');
                 el.classList.toggle("current");
+               
             } else if (toggleUl == todoItemNode.li) {
                 toggleUl.classList.remove('current');
+                
             } else {
                 el.classList.toggle("current");
+               
             }
         })
     }
@@ -207,7 +178,7 @@ class View {
 }
 
 
-class firstList  {
+class FirstList  {
     constructor(){
         this.addBtn = document.querySelector('.addBtn');
         this.counter = document.getElementById('counter');
@@ -220,7 +191,7 @@ class firstList  {
 
 }
 
-class secondList{
+class SecondList{
     constructor(){
         this.addBtn = document.querySelector('.addBtnCard');
         this.counter = document.querySelector('#counterCard');
@@ -232,5 +203,5 @@ class secondList{
     }
 }
 
-const FirstList = new firstList();
-const SecondList = new secondList();
+const firstList = new FirstList();
+const secondList = new SecondList();
