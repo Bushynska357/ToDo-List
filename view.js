@@ -5,23 +5,28 @@ class View {
     onEditTodoItem;
     onEditChange;
 
-    constructor() {
-        this.addBtn = document.querySelector('.addBtn');
-        this.counter = document.getElementById('counter');
-        this.modalBtn = document.querySelector('.modalBtn');
-        this.cancel = document.querySelector('.cancel');
-
-        this.modalBtn.addEventListener('click', () => {
-            let modal = document.getElementById('myModal');
+    //modalCard
+    // onAddTodoItemCard;
+    
+    constructor(container) {
+        this.container = container;
+       
+        console.log(container.modalBtn)
+        this.container.modalBtn.addEventListener('click', () => {
+            let modal = this.container.modal;
             modal.style.display = "block";
+            console.log(container.modalBtn)
         });
-        this.cancel.addEventListener('click', () => {
-            let modal = document.getElementById('myModal');
+        this.container.cancel.addEventListener('click', () => {
+            let modal = this.container.modal;
             modal.style.display = "none";
+            console.log(container.modalBtn)
         });
 
-        this.addBtn.addEventListener('click', () => {
-            let text = document.getElementById("myInput").value;
+
+
+        this.container.addBtn.addEventListener('click', () => {
+            let text = this.container.text.value;
             let time = new Date().toLocaleTimeString("en-us", {
                 hour: 'numeric',
                 minute: 'numeric'
@@ -29,16 +34,18 @@ class View {
             if (this.onAddTodoItem) {
                 this.onAddTodoItem(text, time);
             }
-            document.getElementById("myInput").value = "";
+            this.container.text.value = "";
         });
+
     }
 
     countItems(todoItems) {
-        this.counter.innerText = todoItems;
+        this.container.counter.innerText = todoItems;
     }
 
     renderTodoItem(todoItem) {
         const todoItemNode = this.createTodoItemNode();
+       
 
         if (todoItem.isComplete) {
             todoItemNode.chbox.checked = true;
@@ -83,28 +90,29 @@ class View {
             event.stopPropagation();
         })
 
-        todoItemNode.editButton.addEventListener('click', () => {
-            if (todoItemNode.editButton.innerText == "Edit") {
-                todoItemNode.div.setAttribute("contenteditable", true);
-                todoItemNode.editButton.innerText = "Ok";
-                todoItemNode.div.style.border = "2px solid #000";
-                todoItemNode.div.style.borderRadius = "5px";
-            } else {
-                todoItemNode.div.setAttribute("contenteditable", false)
-                todoItemNode.editButton.innerText = "Edit";
-                todoItemNode.div.style.border = "none";
-                if (this.onEditTodoItem) {
-                    this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked);
-                }
-            }
-        })
+        // todoItemNode.div.addEventListener('click', () => {
+            // if (todoItemNode.editButton.innerText == "Edit") {
+            //     todoItemNode.div.setAttribute("contenteditable", true);
+            //     todoItemNode.editButton.innerText = "Ok";
+            //     todoItemNode.div.style.border = "2px solid #000";
+            //     todoItemNode.div.style.borderRadius = "5px";
+            // } else {
+            //     todoItemNode.div.setAttribute("contenteditable", false)
+            //     todoItemNode.editButton.innerText = "Edit";
+            //     todoItemNode.div.style.border = "none";
+                // if (this.onEditTodoItem) {
+                //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked,);
+                // }
+            // }
+        // })
 
         todoItemNode.li.addEventListener('click', () => {
             console.log('Li click');
             console.log(todoItemNode.li.classList);
-            if (this.onTodoItemStateChanged) {
-                this.onTodoItemStateChanged(todoItemNode.div.id);
-            }
+            // if (this.onTodoItemStateChanged) {
+            //     this.onTodoItemStateChanged(todoItemNode.div.id);
+            // }
+          
             if (todoItemNode.removeButton.hidden == true) {
                 todoItemNode.removeButton.hidden = false;
                 todoItemNode.time.hidden = true;
@@ -113,15 +121,18 @@ class View {
                 todoItemNode.time.hidden = false;
             }
             let el = todoItemNode.li;
-
+            
             let toggleUl = document.querySelector("ul#myUL li.current");
             if (toggleUl && toggleUl != todoItemNode.li) {
                 toggleUl.classList.remove('current');
                 el.classList.toggle("current");
+               
             } else if (toggleUl == todoItemNode.li) {
                 toggleUl.classList.remove('current');
+                
             } else {
                 el.classList.toggle("current");
+               
             }
         })
     }
@@ -153,7 +164,7 @@ class View {
         li.append(box,
             time,
             removeButton);
-        document.getElementById("myUL").append(li);
+        this.container.ulList.append(li);
 
         return {
             li,
@@ -165,3 +176,32 @@ class View {
         }
     }
 }
+
+
+class FirstList  {
+    constructor(){
+        this.addBtn = document.querySelector('.addBtn');
+        this.counter = document.getElementById('counter');
+        this.modalBtn = document.querySelector('.modalBtn');
+        this.cancel = document.querySelector('.cancel');
+        this.ulList = document.getElementById("myUL");
+        this.modal = document.getElementById('myModal');
+        this.text = document.getElementById("myInput");
+    }
+
+}
+
+class SecondList{
+    constructor(){
+        this.addBtn = document.querySelector('.addBtnCard');
+        this.counter = document.querySelector('#counterCard');
+        this.modalBtn = document.querySelector('.modalCardBtn');
+        this.cancel = document.querySelector('.cancel-card');
+        this.ulList = document.getElementById("ULCard");
+        this.modal = document.getElementById('ModalCard');
+        this.text = document.getElementById("InputCard");
+    }
+}
+
+const firstList = new FirstList();
+const secondList = new SecondList();
