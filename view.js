@@ -123,8 +123,22 @@ class View {
         })
         
         
-             
+        todoItemNode.div.addEventListener('click', () =>{
+            this.container.editBlock.style.display = "block";
+            this.container.inputEditCard.value = todoItemNode.div.innerText;
+        })
+        this.container.editBtnFinish.addEventListener('click', () =>{
+            this.container.editBlock.style.display = "none";
+        })
 
+        this.container.editButton.addEventListener('click', () =>{
+            let textEdit = this.container.inputEditCard.value;
+            if (this.onEditTodoItem) {
+                this.onEditTodoItem(todoItemNode.div.id, textEdit, todoItemNode.chbox.checked, todoItem.time, todoItem.selected);
+                this.container.editBlock.style.display = "none";
+            }
+            
+        })
         // todoItemNode.div.addEventListener('click', (event) => {
         //     // if (this.onEditTodoItem) {
         //     //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
@@ -297,6 +311,11 @@ class FirstList  {
         this.modal = document.getElementById('myModal');
         this.text = document.getElementById("myInput");
         this.toggleUl = document.querySelector("ul#myUL li.current");
+
+        this.editBlock = document.getElementById('editModal');
+        this.editBtnFinish = document.querySelector('.editBtnFinish');
+        this.inputEditCard = document.getElementById('editInput');
+        this.editButton = document.querySelector('.editBtn');
     }
 
 }
@@ -311,6 +330,11 @@ class SecondList{
         this.modal = document.getElementById('ModalCard');
         this.text = document.getElementById("InputCard");
         this.toggleUl = document.querySelector("ul#ULCard li.current");
+
+        this.editBlock = document.getElementById('editModalCard');
+        this.editBtnFinish = document.querySelector('.editBtnCardFinish');
+        this.inputEditCard = document.getElementById('editInputCard');
+        this.editButton = document.querySelector('.editBtnCard');
     }
 }
 

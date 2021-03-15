@@ -128,13 +128,16 @@ class Model {
         }
     }
 
-    editTodoItem(id, txt, checked, cardTime) {
-        this.storage.liststorage.splice(id, 1, { index: Number(id), isComplete: checked, text: txt, time: cardTime })
+    editTodoItem(id, txt, checked, cardTime, select) {
+        this.storage.liststorage.splice(id, 1, { index: Number(id), isComplete: checked, text: txt, time: cardTime, selected: select})
         for (let i = 0; i < this.storage.liststorage.length; i++) {
             this.storage.liststorage[i].index = i;
             this.storage.setStorage();
+           
             // localStorage.setItem('data', JSON.stringify(this.liststorage))
         }
+        this.view.updateTodoListItem();
+       
     }
 
     updateTodoList(){

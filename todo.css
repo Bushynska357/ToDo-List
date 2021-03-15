@@ -85,6 +85,16 @@ body {
     height: 40px;
     font-size: 18px;
 }
+.finish{
+    color: #9b9cb3;
+    cursor: pointer;
+    background-color: #fdfdff;
+    border-radius: 10px;
+    border: 1px solid #9b9cb3;
+    width: 95px;
+    height: 40px;
+    font-size: 18px;
+}
 
 .cancel-card {
     color: #9b9cb3;
@@ -121,6 +131,17 @@ ul {
     font-weight: lighter;
     font-size: 18px;
    
+}
+.edit{
+    cursor: pointer;
+    background-color: #666afb;
+    border-radius: 10px;
+    border: none;
+    width: 80px;
+    height: 40px;
+    color: white;
+    font-weight: lighter;
+    font-size: 18px;
 }
 
 .addBtnCard {
@@ -319,11 +340,11 @@ body:active,
     font-size: 14px;
 }
 
-input[type="checkbox"]:checked{
+/* input[type="checkbox"]:checked{
     filter: invert(24%) sepia(160%) saturate(2013%) hue-rotate(
         305deg
         ) brightness(166%) contrast(145%);;
-}
+} */
 /* .checked{
    
     filter: invert(100%) hue-rotate(18deg) brightness(1.7);
