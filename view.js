@@ -4,7 +4,8 @@ class View {
     onTodoItemStateChanged;
     onEditTodoItem;
     onEditChange;
-
+    onTodoItemStateSelect;
+    onUpdateTodoList;
     //modalCard
     // onAddTodoItemCard;
     
@@ -50,14 +51,18 @@ class View {
 
         if (todoItem.isComplete) {
             todoItemNode.chbox.checked = true;
+            // todoItemNode.chbox.style.background = 'red';
+            // todoItemNode.chbox.classList.toggle('checked');
             todoItemNode.div.style.textDecoration = "line-through";
             todoItemNode.div.style.color = "#d6d6e4";
         } else {
             todoItemNode.chbox.checked = false;
             todoItemNode.div.style.textDecoration = "none";
             todoItemNode.div.style.color = "#82829c";
+            // todoItemNode.chbox.classList.remove('checked');
+            // todoItemNode.chbox.style.background = 'white';
         }
-        todoItemNode.removeButton.hidden = true;
+        // todoItemNode.removeButton.hidden = true;
 
         console.log(todoItem);
 
@@ -93,38 +98,6 @@ class View {
                 todoItemNode.div.style.color = "#82829c";
             }
 
-            let el = todoItemNode.li;
-            let toggleUl = this.container.toggleUl;
-            if (todoItemNode.removeButton.hidden == true) {
-                todoItemNode.removeButton.hidden = false;
-                todoItemNode.time.hidden = true;
-               
-            }else{
-                todoItemNode.removeButton.hidden = true;
-                todoItemNode.time.hidden = false;
-            }
-
-            if (toggleUl && toggleUl != todoItemNode.li) {
-                toggleUl.classList.remove('current');
-                el.classList.toggle("current");
-            } else if (toggleUl == todoItemNode.li) {
-                toggleUl.classList.remove('current');
-            } else {
-                el.classList.toggle("current");
-               
-            }
-
-            event.stopPropagation();
-        })
-        
-        
-             
-
-        todoItemNode.div.addEventListener('click', (event) => {
-            // if (this.onEditTodoItem) {
-            //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
-            // }
-        alert('hi')
             // let el = todoItemNode.li;
             // let toggleUl = this.container.toggleUl;
             // if (todoItemNode.removeButton.hidden == true) {
@@ -145,26 +118,74 @@ class View {
             //     el.classList.toggle("current");
                
             // }
-            // if (todoItemNode.editButton.innerText == "Edit") {
-            //     todoItemNode.div.setAttribute("contenteditable", true);
-            //     todoItemNode.editButton.innerText = "Ok";
-            //     todoItemNode.div.style.border = "2px solid #000";
-            //     todoItemNode.div.style.borderRadius = "5px";
-            // } else {
-            //     todoItemNode.div.setAttribute("contenteditable", false)
-            //     todoItemNode.editButton.innerText = "Edit";
-            //     todoItemNode.div.style.border = "none";
-            //     if (this.onEditTodoItem) {
-            //         this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
-            //     }
-                event.stopPropagation();
-            // }
+
+            event.stopPropagation();
         })
-       
+        
+        
+             
+
+        // todoItemNode.div.addEventListener('click', (event) => {
+        //     // if (this.onEditTodoItem) {
+        //     //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
+        //     // }
+        // alert('hi')
+        //     // let el = todoItemNode.li;
+        //     // let toggleUl = this.container.toggleUl;
+        //     // if (todoItemNode.removeButton.hidden == true) {
+        //     //     todoItemNode.removeButton.hidden = false;
+        //     //     todoItemNode.time.hidden = true;
+               
+        //     // }else{
+        //     //     todoItemNode.removeButton.hidden = true;
+        //     //     todoItemNode.time.hidden = false;
+        //     // }
+
+        //     // if (toggleUl && toggleUl != todoItemNode.li) {
+        //     //     toggleUl.classList.remove('current');
+        //     //     el.classList.toggle("current");
+        //     // } else if (toggleUl == todoItemNode.li) {
+        //     //     toggleUl.classList.remove('current');
+        //     // } else {
+        //     //     el.classList.toggle("current");
+               
+        //     // }
+        //     // if (todoItemNode.editButton.innerText == "Edit") {
+        //     //     todoItemNode.div.setAttribute("contenteditable", true);
+        //     //     todoItemNode.editButton.innerText = "Ok";
+        //     //     todoItemNode.div.style.border = "2px solid #000";
+        //     //     todoItemNode.div.style.borderRadius = "5px";
+        //     // } else {
+        //     //     todoItemNode.div.setAttribute("contenteditable", false)
+        //     //     todoItemNode.editButton.innerText = "Edit";
+        //     //     todoItemNode.div.style.border = "none";
+        //     //     if (this.onEditTodoItem) {
+        //     //         this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
+        //     //     }
+        //         event.stopPropagation();
+        //     // }
+        // })
+
+
+        if(todoItem.selected){
+            // todoItemNode.li.style.background = "red";
+            todoItemNode.li.classList.toggle("current");
+            todoItemNode.removeButton.hidden = false;
+            todoItemNode.time.hidden = true;
+        }else{
+            // todoItemNode.li.style.background = "yellow";
+            todoItemNode.li.classList.remove("current");
+            todoItemNode.removeButton.hidden = true;
+            todoItemNode.time.hidden = false;
+        }
+
         todoItemNode.li.addEventListener('click', () => {
             console.log('Li click');
             console.log(todoItemNode.li.classList);
-          
+            if (this.onTodoItemStateSelect) {
+                this.onTodoItemStateSelect(todoItemNode.div.id);
+            }
+
             // if (todoItemNode.chbox.checked) {
             //     todoItemNode.div.style.textDecoration = "line-through";
             //     todoItemNode.div.style.color = "#d6d6e4";
@@ -177,26 +198,27 @@ class View {
             //     this.onTodoItemStateChanged(todoItemNode.div.id);
             // }
           
-            if (todoItemNode.removeButton.hidden == true) {
-                todoItemNode.removeButton.hidden = false;
-                todoItemNode.time.hidden = true;
+        //     if (todoItemNode.removeButton.hidden == true) {
+        //         todoItemNode.removeButton.hidden = false;
+        //         todoItemNode.time.hidden = true;
                
-            } else {
-                todoItemNode.removeButton.hidden = true;
-                todoItemNode.time.hidden = false;
+        //     } else {
+        //         todoItemNode.removeButton.hidden = true;
+        //         todoItemNode.time.hidden = false;
                
-            }
-            let el = todoItemNode.li;
+        //     }
+        //     let el = todoItemNode.li;
             
-            let toggleUl = this.container.toggleUl;
-            if (toggleUl && toggleUl != todoItemNode.li) {
-                toggleUl.classList.remove('current');
-                el.classList.toggle("current");
-            } else if (toggleUl == todoItemNode.li) {
-                toggleUl.classList.remove('current');
-            } else {
-                el.classList.toggle("current");
-            }
+        //     let toggleUl = this.container.toggleUl;
+        //     if (toggleUl && toggleUl != todoItemNode.li) {
+        //         toggleUl.classList.remove('current');
+        //         el.classList.toggle("current");
+        //     } else if (toggleUl == todoItemNode.li) {
+        //         toggleUl.classList.remove('current');
+        //     } else {
+        //         el.classList.toggle("current");
+        //     }
+        // })
         })
     }
     // function selectElement (){
@@ -251,6 +273,14 @@ class View {
             removeButton,
             editButton,
             chbox
+        }
+    }
+
+
+    updateTodoListItem(){
+        this.container.ulList.innerHTML = " ";
+       if (this.onUpdateTodoList) {
+            this.onUpdateTodoList();
         }
     }
 

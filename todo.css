@@ -319,6 +319,15 @@ body:active,
     font-size: 14px;
 }
 
+input[type="checkbox"]:checked{
+    filter: invert(24%) sepia(160%) saturate(2013%) hue-rotate(
+        305deg
+        ) brightness(166%) contrast(145%);;
+}
+/* .checked{
+   
+    filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+} */
 /* media */
 
 

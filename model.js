@@ -78,13 +78,31 @@ class Model {
         // localStorage.setItem('data', JSON.stringify(this.liststorage));
     }
 
+    triggerSelectedById(id){
+        
+        let itemSelect = this.storage.liststorage.find((itemSelect) => itemSelect.index == id);
+        itemSelect.selected = !itemSelect.selected;
+        // const select = this.storage.liststorage.filter(itemSelect => itemSelect.selected == true);
+        // console.log(select)
+        
+        for (let i = 0; i < this.storage.liststorage.length; ++i){
+            if(this.storage.liststorage[i] != itemSelect){
+                this.storage.liststorage[i].selected = false;
+               
+            }
+           
+            this.storage.setStorage();
+        }
+      this.view.updateTodoListItem();
+    }
     addTodoItem(text, time) {
         
         let newListItem = {
             index: this.storage.liststorage.length,
             isComplete: false,
             text,
-            time
+            time,
+            selected:false
         }
 
         if (newListItem.text != "") {
@@ -116,6 +134,13 @@ class Model {
             this.storage.liststorage[i].index = i;
             this.storage.setStorage();
             // localStorage.setItem('data', JSON.stringify(this.liststorage))
+        }
+    }
+
+    updateTodoList(){
+        // this.storage.setStorage();
+        for (let i = 0; i < this.storage.liststorage.length; i++){
+            this.view.renderTodoItem(this.storage.liststorage[i])
         }
     }
 }

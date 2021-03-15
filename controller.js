@@ -7,7 +7,9 @@ class Controller {
         this.view.onRemoveTodoItem = (todoItemId) => this.removeTodo(todoItemId);
         this.view.onEditTodoItem = (id, txt, checked, cardTime) => this.editTodo(id, txt, checked, cardTime);
         this.view.onTodoItemStateChanged = (todoItem) => this.itemStateChaged(todoItem);
-    }
+        this.view.onTodoItemStateSelect = (todoItemSelected) => this.itemStageSelect(todoItemSelected);
+        this.view.onUpdateTodoList = () => this.updateList();
+    } 
 
     addTodo(text, time) {
         this.model.addTodoItem(text, time);
@@ -25,5 +27,11 @@ class Controller {
     itemStateChaged(id) {
         this.model.triggerStateById(id)
             // console.log(this.liststorage)
+    }
+    itemStageSelect(id){
+        this.model.triggerSelectedById(id);
+    }
+    updateList(){
+        this.model.updateTodoList();
     }
 }
