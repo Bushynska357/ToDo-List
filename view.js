@@ -94,7 +94,7 @@ class View {
             }
 
             let el = todoItemNode.li;
-            let toggleUl = document.querySelector("ul#myUL li.current");
+            let toggleUl = this.container.toggleUl;
             if (todoItemNode.removeButton.hidden == true) {
                 todoItemNode.removeButton.hidden = false;
                 todoItemNode.time.hidden = true;
@@ -117,36 +117,34 @@ class View {
             event.stopPropagation();
         })
         
-        if(todoItemNode.div.contentEditable == "true"){
-            todoItemNode.div.setAttribute("contenteditable", false);
-        }
+        
              
 
         todoItemNode.div.addEventListener('click', (event) => {
-            if (this.onEditTodoItem) {
-                this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
-            }
-            todoItemNode.div.setAttribute("contenteditable", true);
-            let el = todoItemNode.li;
-            let toggleUl = document.querySelector("ul#myUL li.current");
-            if (todoItemNode.removeButton.hidden == true) {
-                todoItemNode.removeButton.hidden = false;
-                todoItemNode.time.hidden = true;
+            // if (this.onEditTodoItem) {
+            //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
+            // }
+        alert('hi')
+            // let el = todoItemNode.li;
+            // let toggleUl = this.container.toggleUl;
+            // if (todoItemNode.removeButton.hidden == true) {
+            //     todoItemNode.removeButton.hidden = false;
+            //     todoItemNode.time.hidden = true;
                
-            }else{
-                todoItemNode.removeButton.hidden = true;
-                todoItemNode.time.hidden = false;
-            }
+            // }else{
+            //     todoItemNode.removeButton.hidden = true;
+            //     todoItemNode.time.hidden = false;
+            // }
 
-            if (toggleUl && toggleUl != todoItemNode.li) {
-                toggleUl.classList.remove('current');
-                el.classList.toggle("current");
-            } else if (toggleUl == todoItemNode.li) {
-                toggleUl.classList.remove('current');
-            } else {
-                el.classList.toggle("current");
+            // if (toggleUl && toggleUl != todoItemNode.li) {
+            //     toggleUl.classList.remove('current');
+            //     el.classList.toggle("current");
+            // } else if (toggleUl == todoItemNode.li) {
+            //     toggleUl.classList.remove('current');
+            // } else {
+            //     el.classList.toggle("current");
                
-            }
+            // }
             // if (todoItemNode.editButton.innerText == "Edit") {
             //     todoItemNode.div.setAttribute("contenteditable", true);
             //     todoItemNode.editButton.innerText = "Ok";
@@ -162,7 +160,7 @@ class View {
                 event.stopPropagation();
             // }
         })
-
+       
         todoItemNode.li.addEventListener('click', () => {
             console.log('Li click');
             console.log(todoItemNode.li.classList);
@@ -190,7 +188,7 @@ class View {
             }
             let el = todoItemNode.li;
             
-            let toggleUl = document.querySelector("ul#myUL li.current");
+            let toggleUl = this.container.toggleUl;
             if (toggleUl && toggleUl != todoItemNode.li) {
                 toggleUl.classList.remove('current');
                 el.classList.toggle("current");
@@ -201,6 +199,21 @@ class View {
             }
         })
     }
+    // function selectElement (){
+    //     let allItems = document.getElementById("myUL").parentElement.querySelectorAll("li");
+    //     for (let i = 0; i<= allItems.length; i++){
+    //         allItems[i].classList.remove('current');
+    //     }
+    //     document.querySelector("ul#myUL").classList.add('current')
+    // }
+
+    // todoItemNode.li.addEventListener('click', selectElement, true);
+    // }
+ 
+    
+    
+
+ 
 
     createTodoItemNode() {
         const li = document.createElement('li');
@@ -240,6 +253,7 @@ class View {
             chbox
         }
     }
+
 }
 
 
@@ -252,6 +266,7 @@ class FirstList  {
         this.ulList = document.getElementById("myUL");
         this.modal = document.getElementById('myModal');
         this.text = document.getElementById("myInput");
+        this.toggleUl = document.querySelector("ul#myUL li.current");
     }
 
 }
@@ -265,6 +280,7 @@ class SecondList{
         this.ulList = document.getElementById("ULCard");
         this.modal = document.getElementById('ModalCard');
         this.text = document.getElementById("InputCard");
+        this.toggleUl = document.querySelector("ul#ULCard li.current");
     }
 }
 

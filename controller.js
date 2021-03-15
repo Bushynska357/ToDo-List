@@ -3,7 +3,6 @@ class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
-        // this.liststorage = liststorage;
         this.view.onAddTodoItem = (text, time) => this.addTodo(text, time);
         this.view.onRemoveTodoItem = (todoItemId) => this.removeTodo(todoItemId);
         this.view.onEditTodoItem = (id, txt, checked, cardTime) => this.editTodo(id, txt, checked, cardTime);

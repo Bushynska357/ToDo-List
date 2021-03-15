@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
    
-    
+    //loaded
     const view = new View(firstList);
     const model = new Model(view, storage);
     const controller = new Controller(model, view);
