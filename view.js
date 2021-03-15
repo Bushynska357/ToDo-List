@@ -27,10 +27,11 @@ class View {
 
         this.container.addBtn.addEventListener('click', () => {
             let text = this.container.text.value;
-            let time = new Date().toLocaleTimeString("en-us", {
-                hour: 'numeric',
-                minute: 'numeric'
-            });
+            // let time = new Date().toLocaleTimeString("en-us", {
+            //     hour: 'numeric',
+            //     minute: 'numeric'
+            // });
+            let time = new Date();
             if (this.onAddTodoItem) {
                 this.onAddTodoItem(text, time);
             }
@@ -60,13 +61,18 @@ class View {
 
         console.log(todoItem);
 
-        let test = new Date();
-        let h = test.getHours().toString();
-        let m = test.getMinutes();
+        // let test = new Date();
+        // let h = test.getHours().toString();
+        // let m = test.getMinutes();
         todoItemNode.div.id = todoItem.index;
         todoItemNode.div.innerText = todoItem.text;
-        todoItemNode.time.innerText = todoItem.time;
+        todoItemNode.time.innerText = new Date(todoItem.time).toLocaleTimeString("en-us", {
+            hour: 'numeric',
+            minute: 'numeric'
+        });
+        // todoItemNode.time.innerText = todoItem.time;
         todoItemNode.time.className = "creationTime";
+
 
         todoItemNode.removeButton.addEventListener('click', () => {
             if (this.onRemoveTodoItem) {
@@ -87,10 +93,60 @@ class View {
                 todoItemNode.div.style.color = "#82829c";
             }
 
+            let el = todoItemNode.li;
+            let toggleUl = document.querySelector("ul#myUL li.current");
+            if (todoItemNode.removeButton.hidden == true) {
+                todoItemNode.removeButton.hidden = false;
+                todoItemNode.time.hidden = true;
+               
+            }else{
+                todoItemNode.removeButton.hidden = true;
+                todoItemNode.time.hidden = false;
+            }
+
+            if (toggleUl && toggleUl != todoItemNode.li) {
+                toggleUl.classList.remove('current');
+                el.classList.toggle("current");
+            } else if (toggleUl == todoItemNode.li) {
+                toggleUl.classList.remove('current');
+            } else {
+                el.classList.toggle("current");
+               
+            }
+
             event.stopPropagation();
         })
+        
+        if(todoItemNode.div.contentEditable == "true"){
+            todoItemNode.div.setAttribute("contenteditable", false);
+        }
+             
 
-        // todoItemNode.div.addEventListener('click', () => {
+        todoItemNode.div.addEventListener('click', (event) => {
+            if (this.onEditTodoItem) {
+                this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
+            }
+            todoItemNode.div.setAttribute("contenteditable", true);
+            let el = todoItemNode.li;
+            let toggleUl = document.querySelector("ul#myUL li.current");
+            if (todoItemNode.removeButton.hidden == true) {
+                todoItemNode.removeButton.hidden = false;
+                todoItemNode.time.hidden = true;
+               
+            }else{
+                todoItemNode.removeButton.hidden = true;
+                todoItemNode.time.hidden = false;
+            }
+
+            if (toggleUl && toggleUl != todoItemNode.li) {
+                toggleUl.classList.remove('current');
+                el.classList.toggle("current");
+            } else if (toggleUl == todoItemNode.li) {
+                toggleUl.classList.remove('current');
+            } else {
+                el.classList.toggle("current");
+               
+            }
             // if (todoItemNode.editButton.innerText == "Edit") {
             //     todoItemNode.div.setAttribute("contenteditable", true);
             //     todoItemNode.editButton.innerText = "Ok";
@@ -100,15 +156,25 @@ class View {
             //     todoItemNode.div.setAttribute("contenteditable", false)
             //     todoItemNode.editButton.innerText = "Edit";
             //     todoItemNode.div.style.border = "none";
-                // if (this.onEditTodoItem) {
-                //     this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked,);
-                // }
+            //     if (this.onEditTodoItem) {
+            //         this.onEditTodoItem(todoItemNode.div.id, todoItemNode.div.innerText, todoItemNode.chbox.checked, todoItemNode.time.innerText);
+            //     }
+                event.stopPropagation();
             // }
-        // })
+        })
 
         todoItemNode.li.addEventListener('click', () => {
             console.log('Li click');
             console.log(todoItemNode.li.classList);
+          
+            // if (todoItemNode.chbox.checked) {
+            //     todoItemNode.div.style.textDecoration = "line-through";
+            //     todoItemNode.div.style.color = "#d6d6e4";
+            // } else {
+            //     todoItemNode.div.style.textDecoration = "none";
+            //     todoItemNode.div.style.color = "#82829c";
+            // }
+
             // if (this.onTodoItemStateChanged) {
             //     this.onTodoItemStateChanged(todoItemNode.div.id);
             // }
@@ -116,9 +182,11 @@ class View {
             if (todoItemNode.removeButton.hidden == true) {
                 todoItemNode.removeButton.hidden = false;
                 todoItemNode.time.hidden = true;
+               
             } else {
                 todoItemNode.removeButton.hidden = true;
                 todoItemNode.time.hidden = false;
+               
             }
             let el = todoItemNode.li;
             
@@ -126,13 +194,10 @@ class View {
             if (toggleUl && toggleUl != todoItemNode.li) {
                 toggleUl.classList.remove('current');
                 el.classList.toggle("current");
-               
             } else if (toggleUl == todoItemNode.li) {
                 toggleUl.classList.remove('current');
-                
             } else {
                 el.classList.toggle("current");
-               
             }
         })
     }

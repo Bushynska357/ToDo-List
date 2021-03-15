@@ -173,9 +173,9 @@ ul li {
     z-index: 3;
 }
 
-[hidden] {
+/* [hidden] {
     display: none;
-}
+} */
 
 /* ul li button {
     margin-left: 500px;
@@ -280,6 +280,13 @@ span.dateDayCard {
 }
 
 span.dateMo {
+    color: #9b9cb3;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 20px 0;
+}
+
+span.dateMoCard {
     color: #9b9cb3;
     font-size: 18px;
     font-weight: lighter;

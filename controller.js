@@ -6,7 +6,7 @@ class Controller {
         // this.liststorage = liststorage;
         this.view.onAddTodoItem = (text, time) => this.addTodo(text, time);
         this.view.onRemoveTodoItem = (todoItemId) => this.removeTodo(todoItemId);
-        this.view.onEditTodoItem = (id, txt, checked) => this.editTodo(id, txt, checked);
+        this.view.onEditTodoItem = (id, txt, checked, cardTime) => this.editTodo(id, txt, checked, cardTime);
         this.view.onTodoItemStateChanged = (todoItem) => this.itemStateChaged(todoItem);
     }
 
@@ -19,8 +19,8 @@ class Controller {
         this.view.countItems(this.model.storage.liststorage.length);
     }
 
-    editTodo(id, txt, checked) {
-        this.model.editTodoItem(id, txt, checked)
+    editTodo(id, txt, checked, cardTime) {
+        this.model.editTodoItem(id, txt, checked, cardTime)
     }
 
     itemStateChaged(id) {

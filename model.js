@@ -1,5 +1,6 @@
 // var list = [{ text: 'test 1', index: 0, isComplete: false, time: '14:15 PM' }, { text: 'test 2', index: 1, isComplete: true, time: '14:15 PM' }];
 var list = [];
+var listCard = [];
 class Storage{
     constructor(){
         this.localStorage = window.localStorage;
@@ -28,7 +29,7 @@ const storage = new Storage();
 const storageCard = new StorageCard;
 
 if (!storageCard.liststorage) {
-    storageCard.liststorage = this.list;
+    storageCard.liststorage = this.listCard;
 }
 if (!storage.liststorage) {
     storage.liststorage = this.list;
@@ -109,8 +110,8 @@ class Model {
         }
     }
 
-    editTodoItem(id, txt, checked) {
-        this.storage.liststorage.splice(id, 1, { text: txt, index: Number(id), isComplete: checked})
+    editTodoItem(id, txt, checked, cardTime) {
+        this.storage.liststorage.splice(id, 1, { index: Number(id), isComplete: checked, text: txt, time: cardTime })
         for (let i = 0; i < this.storage.liststorage.length; i++) {
             this.storage.liststorage[i].index = i;
             this.storage.setStorage();
@@ -118,41 +119,3 @@ class Model {
         }
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-   
-    
-    const view = new View(firstList);
-    const model = new Model(view, storage);
-    const controller = new Controller(model, view);
-
-    const viewCard = new View(secondList);
-    const modelCard = new Model(viewCard, storageCard);
-    const controllerCard = new Controller(modelCard, viewCard);
-
-      if (storage.liststorage != null) {
-        for (let i = 0; i < storage.liststorage.length; i++) {
-            view.renderTodoItem(storage.liststorage[i]);
-            view.countItems(storage.liststorage.length);
-        }
-    } else {
-        for (let i = 0; i < this.list.length; i++) {
-            storage.liststorage = view.renderTodoItem(this.list[i]);
-            storage.liststorage = localStorage.setItem('data', JSON.stringify(this.list))
-        }
-    }
-
-      if (storageCard.liststorage != null) {
-        for (let i = 0; i < storageCard.liststorage.length; i++) {
-            viewCard.renderTodoItem(storageCard.liststorage[i]);
-            viewCard.countItems(storageCard.liststorage.length);
-        }
-    } else {
-        for (let i = 0; i < this.list.length; i++) {
-            storageCard.liststorage = viewCard.renderTodoItem(this.list[i]);
-            storageCard.liststorage = localStorage.setItem('dataCard', JSON.stringify(this.list))
-        }
-    }
-
-
-});
