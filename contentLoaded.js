@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-   
+   const storage =new Storage('data');
+   const storageCard =new Storage('dataCard');
     //loaded
-    const view = new View(firstList);
+    const view = new View('first','firstModal', 'firstEditModal');
     const model = new Model(view, storage);
     const controller = new Controller(model, view);
 
-    const viewCard = new View(secondList);
+    const viewCard = new View('second', 'secondModal', 'secondEditModal');
     const modelCard = new Model(viewCard, storageCard);
     const controllerCard = new Controller(modelCard, viewCard);
 

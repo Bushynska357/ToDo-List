@@ -2,38 +2,36 @@
 var list = [];
 var listCard = [];
 class Storage{
-    constructor(){
+    constructor(storageName){
         this.localStorage = window.localStorage;
-        this.liststorage = JSON.parse(localStorage.getItem('data'));
-        this.getStorage = localStorage.getItem("data");
+        this.liststorage = JSON.parse(localStorage.getItem(storageName)) || [];
+        this.getStorage = localStorage.getItem(storageName);
         this.setStorage = function setItemStorage(){
-            localStorage.setItem('data', JSON.stringify(this.liststorage));
+            localStorage.setItem(storageName, JSON.stringify(this.liststorage));
         }
         
     }
 }
+// const storage = new Storage();
 
-class StorageCard{
-    constructor(){
-        this.localStorage = window.localStorage;
-        this.liststorage = JSON.parse(localStorage.getItem('dataCard'));
-        this.getStorage = localStorage.getItem("dataCard");
-        this.setStorage = function setItemStorage(){
-            localStorage.setItem('dataCard', JSON.stringify(this.liststorage));
-        }
+// class StorageCard{
+//     constructor(){
+//         this.localStorage = window.localStorage;
+//         this.liststorage = JSON.parse(localStorage.getItem('dataCard')) || [];
+//         this.getStorage = localStorage.getItem("dataCard");
+//         this.setStorage = function setItemStorage(){
+//             localStorage.setItem('dataCard', JSON.stringify(this.liststorage));
+//         }
         
-    }
-}
+//     }
+// }
 
-const storage = new Storage();
-const storageCard = new StorageCard;
-
-if (!storageCard.liststorage) {
-    storageCard.liststorage = this.listCard;
-}
-if (!storage.liststorage) {
-    storage.liststorage = this.list;
-}
+// if (!storageCard.liststorage) {
+//     storageCard.liststorage = this.listCard;
+// }
+// if (!storage.liststorage) {
+//     storage.liststorage = this.list;
+// }
 
 
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -43,13 +41,13 @@ nowDay = now.getDay();
 nowNum = now.getDate();
 nowMo = now.getMonth();
 
-var dateM = document.querySelector(".date");
-var dateD = document.querySelector(".dateDay");
-var dateMonth = document.querySelector(".dateMo");
+var dateM = document.querySelector("#first .date");
+var dateD = document.querySelector("#first .dateDay");
+var dateMonth = document.querySelector("#first .dateMo");
 
-var dateMCard = document.querySelector(".dateCard");
-var dateDCard = document.querySelector(".dateDayCard");
-var dateMonthCard = document.querySelector(".dateMoCard");
+var dateMCard = document.querySelector("#second .date");
+var dateDCard = document.querySelector("#second .dateDay");
+var dateMonthCard = document.querySelector("#second .dateMo");
 
 
 dateM.innerText = days[nowDay];
@@ -63,11 +61,11 @@ dateMonthCard.innerText = months[nowMo];
 class Model {
     // liststorage
 
-    constructor(view,storage) {
+    constructor(view, storage) {
         this.view = view;
         this.storage = storage;
         console.log(this.storage.liststorage.length);
-        console.log(this.storage.liststorage)
+        // console.log(this.storage.liststorage)
     }
 
     triggerStateById(id) {
@@ -79,9 +77,11 @@ class Model {
     }
 
     triggerSelectedById(id){
-        
         let itemSelect = this.storage.liststorage.find((itemSelect) => itemSelect.index == id);
-        itemSelect.selected = !itemSelect.selected;
+        if(this.storage.liststorage.length != null){  
+            itemSelect.selected = !itemSelect.selected;
+        }
+       
         // const select = this.storage.liststorage.filter(itemSelect => itemSelect.selected == true);
         // console.log(select)
         
@@ -126,16 +126,18 @@ class Model {
             this.storage.setStorage();
             // localStorage.setItem('data', JSON.stringify(this.liststorage))
         }
+        this.storage.setStorage();
     }
 
     editTodoItem(id, txt, checked, cardTime, select) {
         this.storage.liststorage.splice(id, 1, { index: Number(id), isComplete: checked, text: txt, time: cardTime, selected: select})
         for (let i = 0; i < this.storage.liststorage.length; i++) {
             this.storage.liststorage[i].index = i;
-            this.storage.setStorage();
+           
            
             // localStorage.setItem('data', JSON.stringify(this.liststorage))
         }
+        this.storage.setStorage();
         this.view.updateTodoListItem();
        
     }
