@@ -122,17 +122,17 @@ class View {
             event.stopPropagation();
         })
         
-       let IdItemClicked;
-        let elementIsClicked = false;
-        function clickHandler(eventItem){
-            elementIsClicked = true;
-            // console.log('clicked');
-            console.log(eventItem);
-            IdItemClicked = eventItem;
-            console.log(IdItemClicked)
-           return IdItemClicked;
+    //    let IdItemClicked;
+    //     let elementIsClicked = false;
+    //     function clickHandler(eventItem){
+    //         elementIsClicked = true;
+    //         // console.log('clicked');
+    //         console.log(eventItem);
+    //         IdItemClicked = eventItem;
+    //         console.log(IdItemClicked)
+    //        return IdItemClicked;
            
-        }
+    //     }
        
         todoItemNode.div.addEventListener('click', (e) =>{
             let eventItem = e.target.id;
@@ -160,7 +160,7 @@ class View {
         // console.log(eventItem)
         this.container.editBtnFinish.addEventListener('click', () =>{
             this.container.editBlock.style.display = "none";
-            todoItemNode.div.removeEventListener('click')
+         
         })
               
        
